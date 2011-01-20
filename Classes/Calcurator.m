@@ -65,22 +65,12 @@
 }
 
 - (void)hitPlus {
-	if (self.currentOperator) {
-		[self executeOperation];
-	} else {
-		self.result = self.entering;
-		self.entering = @"";
-	}
+	[self executeOperation];
 	self.currentOperator = @"+";
 }
 
 - (void)hitMinus {	
-	if (self.currentOperator) {
-		[self executeOperation];
-	} else {
-		self.result = self.entering;
-		self.entering = @"";
-	}
+	[self executeOperation];
 	self.currentOperator = @"-";
 }
 
@@ -122,6 +112,8 @@
 		[self add];
 	} else if ([self.currentOperator isEqual:@"-"]) {
 		[self subtract];
+	} else {
+		self.result = self.entering;
 	}
 	self.entering = @"";
 }
