@@ -63,6 +63,7 @@
 }
 
 - (void)clear {
+	self.entering = @"";
 }
 
 - (void)negative {
