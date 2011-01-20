@@ -141,6 +141,23 @@
 	[calc typeDigit:2];
 	[calc hitEqual];
     STAssertTrue([calc.result isEqual:@"1"], calc.result);
+	
+	// 10 - 6 - 4 - 3 = -3
+	[calc allClear];
+	[calc typeDigit:1];
+	[calc typeDigit:0];
+	
+	[calc hitMinus];
+	[calc typeDigit:6];
+	
+	[calc hitMinus];
+	[calc typeDigit:4];
+	
+	[calc hitMinus];
+	[calc typeDigit:3];
+	
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"-3"], calc.result);
 }
 
 @end
