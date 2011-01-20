@@ -36,6 +36,7 @@
 }
 
 - (void)typeDigit:(NSInteger)digit {
+	self.entering = [self.entering stringByAppendingFormat:@"%d", digit];
 }
 
 - (void)typeDot {
