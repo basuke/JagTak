@@ -14,6 +14,8 @@
 @property(nonatomic, retain, readwrite) NSString *result;
 @property(nonatomic, retain, readwrite) NSString *entering;
 
+@property(nonatomic, assign, readwrite) BOOL digitEntering;
+
 - (void)typeDigit:(NSInteger)digit;
 - (void)typeDot;
 - (void)hitPlus;

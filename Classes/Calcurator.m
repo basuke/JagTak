@@ -19,6 +19,7 @@
 @synthesize result=_result;
 @synthesize entering=_entering;
 
+@synthesize digitEntering=_digitEntering;
 
 - (id)init {
 	if (self = [super init]) {
@@ -44,7 +45,12 @@
 }
 
 - (void)typeDot {
+	if (self.digitEntering) {
+		return;
+	}
+	
 	self.entering = [self.entering stringByAppendingString:@"."];
+	self.digitEntering = YES;
 }
 
 - (void)hitPlus {
@@ -65,6 +71,7 @@
 
 - (void)clear {
 	self.entering = @"";
+	self.digitEntering = NO;
 }
 
 - (void)negative {
