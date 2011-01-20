@@ -13,6 +13,7 @@
 
 @property(nonatomic, retain, readwrite) NSString *result;
 @property(nonatomic, retain, readwrite) NSString *entering;
+@property(nonatomic, retain, readwrite) NSString *currentOperator;
 
 @property(nonatomic, assign, readwrite) BOOL digitEntering;
 
