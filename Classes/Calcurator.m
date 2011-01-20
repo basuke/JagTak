@@ -44,6 +44,7 @@
 }
 
 - (void)typeDot {
+	self.entering = [self.entering stringByAppendingString:@"."];
 }
 
 - (void)hitPlus {
