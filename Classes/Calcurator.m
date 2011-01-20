@@ -36,6 +36,10 @@
 }
 
 - (void)typeDigit:(NSInteger)digit {
+	if ([self.entering isEqual:@"0"]) {
+		self.entering = @"";
+	}
+	
 	self.entering = [self.entering stringByAppendingFormat:@"%d", digit];
 }
 
