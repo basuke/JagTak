@@ -251,4 +251,37 @@
     STAssertTrue([calc.result isEqual:@"720"], calc.result);
 }
 
+/**
+ * ÷ のテスト
+ */
+- (void)testDiv {
+	Calcurator *calc = [[[Calcurator alloc] init] autorelease];
+	
+	// 6 x 2 = 3
+	[calc clear];
+	[calc typeDigit:6];
+	[calc hitDiv];
+	[calc typeDigit:2];
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"3"], calc.result);
+	
+	// 720 / 6 / 4 / 3 = 10
+	[calc allClear];
+	[calc typeDigit:7];
+	[calc typeDigit:2];
+	[calc typeDigit:0];
+	
+	[calc hitDiv];
+	[calc typeDigit:6];
+	
+	[calc hitDiv];
+	[calc typeDigit:4];
+	
+	[calc hitDiv];
+	[calc typeDigit:3];
+	
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"10"], calc.result);
+}
+
 @end
