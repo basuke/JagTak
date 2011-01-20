@@ -128,4 +128,19 @@
     STAssertTrue([calc.result isEqual:@"10"], calc.result);
 }
 
+/**
+ * - のテスト
+ */
+- (void)testMinus {
+	Calcurator *calc = [[[Calcurator alloc] init] autorelease];
+	
+	// 3 - 2 = 1
+	[calc clear];
+	[calc typeDigit:3];
+	[calc hitMinus];
+	[calc typeDigit:2];
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"1"], calc.result);
+}
+
 @end
