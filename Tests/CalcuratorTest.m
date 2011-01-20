@@ -41,4 +41,55 @@
     STAssertEquals(calc.entering, @"", @"Empty again");
 }
 
+/**
+ * 小数点の入力をテスト
+ */
+- (void)testDot {
+	Calcurator *calc = [[[Calcurator alloc] init] autorelease];
+	
+	[calc clear];
+	[calc typeDigit:1];
+	[calc typeDot];
+	[calc typeDigit:2];
+	[calc typeDigit:3];
+    STAssertTrue([calc.entering isEqual:@"1.23"], calc.entering);
+	
+	// .で始めたら0が先頭につく
+	[calc clear];
+	[calc typeDot];
+	[calc typeDigit:1];
+	[calc typeDigit:2];
+	[calc typeDigit:3];
+    STAssertTrue([calc.entering isEqual:@"0.123"], calc.entering);
+	
+	// 最後の.は有効
+	[calc clear];
+	[calc typeDigit:1];
+	[calc typeDigit:2];
+	[calc typeDigit:3];
+	[calc typeDot];
+    STAssertTrue([calc.entering isEqual:@"123."], calc.entering);
+	
+	// 連続して入力しても一度のみ
+	[calc clear];
+	[calc typeDigit:1];
+	[calc typeDot];
+	[calc typeDot];
+	[calc typeDot];
+	[calc typeDigit:2];
+	[calc typeDigit:3];
+    STAssertTrue([calc.entering isEqual:@"1.23"], calc.entering);
+	
+	// 間をおいて二度入れても無効
+	[calc clear];
+	[calc typeDigit:1];
+	[calc typeDigit:2];
+	[calc typeDot];
+	[calc typeDigit:3];
+	[calc typeDot];
+	[calc typeDigit:4];
+    STAssertTrue([calc.entering isEqual:@"12.34"], calc.entering);
+	
+}
+
 @end
