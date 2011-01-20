@@ -160,4 +160,38 @@
     STAssertTrue([calc.result isEqual:@"-3"], calc.result);
 }
 
+/**
+ * + と - のミックスのテスト
+ */
+- (void)testPlusAndMinus {
+	Calcurator *calc = [[[Calcurator alloc] init] autorelease];
+	
+	// 3 + 4 - 5 = 2
+	[calc clear];
+	[calc typeDigit:3];
+	[calc hitPlus];
+	[calc typeDigit:4];
+	[calc hitMinus];
+	[calc typeDigit:5];
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"2"], calc.result);
+	
+	// 10 - 6 + 4 - 3 = 5
+	[calc allClear];
+	[calc typeDigit:1];
+	[calc typeDigit:0];
+	
+	[calc hitMinus];
+	[calc typeDigit:6];
+	
+	[calc hitPlus];
+	[calc typeDigit:4];
+	
+	[calc hitMinus];
+	[calc typeDigit:3];
+	
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"5"], calc.result);
+}
+
 @end
