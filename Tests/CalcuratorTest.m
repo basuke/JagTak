@@ -194,4 +194,29 @@
     STAssertTrue([calc.result isEqual:@"5"], calc.result);
 }
 
+/**
+ * 少数の + のテスト
+ */
+- (void)testFractionalPlus {
+	Calcurator *calc = [[[Calcurator alloc] init] autorelease];
+	
+	// 1.5 + 2.7 = 4.2
+	[calc clear];
+	[calc typeDigit:1];
+	[calc typeDot];
+	[calc typeDigit:5];
+    STAssertTrue([calc.entering isEqual:@"1.5"], calc.entering);
+	
+	[calc hitPlus];
+    STAssertTrue([calc.result isEqual:@"1.5"], calc.result);
+	
+	[calc typeDigit:2];
+	[calc typeDot];
+	[calc typeDigit:7];
+    STAssertTrue([calc.entering isEqual:@"2.7"], calc.entering);
+	
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"4.2"], calc.result);
+}
+
 @end

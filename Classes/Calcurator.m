@@ -14,6 +14,7 @@
 - (void)executeOperation;
 - (void)add;
 - (void)subtract;
+- (NSString *)formatResult:(double)val;
 
 @end
 
@@ -115,23 +116,40 @@
 	} else {
 		self.result = self.entering;
 	}
-	self.entering = @"";
+	
+	[self clear];
 }
 
 - (void)add {
-	NSInteger val1 = [self.result intValue];
-	NSInteger val2 = [self.entering intValue];
-	NSInteger val3 = val1 + val2;
+	double val1 = [self.result doubleValue];
+	double val2 = [self.entering doubleValue];
+	double val3 = val1 + val2;
 	
-	self.result = [NSString stringWithFormat:@"%d", val3];
+	self.result = [self formatResult:val3];;
 }
 
 - (void)subtract {
-	NSInteger val1 = [self.result intValue];
-	NSInteger val2 = [self.entering intValue];
-	NSInteger val3 = val1 - val2;
+	double val1 = [self.result doubleValue];
+	double val2 = [self.entering doubleValue];
+	double val3 = val1 - val2;
 	
-	self.result = [NSString stringWithFormat:@"%d", val3];
+	self.result = [self formatResult:val3];
+}
+
+- (NSString *)formatResult:(double)val {
+	NSMutableString *str = [NSMutableString stringWithFormat:@"%.12f", val];
+	
+	while ([str length] > 0) {
+		NSInteger pos = [str length] - 1;
+		unichar c = [str characterAtIndex:pos];
+		if (c != '0' && c != '.') break;
+		
+		[str deleteCharactersInRange:NSMakeRange(pos, 1)];
+		
+		if (c == '.') break;
+	}
+	
+	return str;
 }
 
 @end
