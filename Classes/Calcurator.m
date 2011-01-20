@@ -15,6 +15,7 @@
 - (void)add;
 - (void)subtract;
 - (void)multiply;
+- (void)divide;
 - (NSString *)formatResult:(double)val;
 
 @end
@@ -82,7 +83,8 @@
 }
 
 - (void)hitDiv {
-	
+	[self executeOperation];
+	self.currentOperator = @"/";
 }
 
 - (void)hitEqual {
@@ -118,6 +120,8 @@
 		[self subtract];
 	} else if ([self.currentOperator isEqual:@"*"]) {
 		[self multiply];
+	} else if ([self.currentOperator isEqual:@"/"]) {
+		[self divide];
 	} else {
 		self.result = self.entering;
 	}
@@ -145,6 +149,14 @@
 	double val1 = [self.result doubleValue];
 	double val2 = [self.entering doubleValue];
 	double val3 = val1 * val2;
+	
+	self.result = [self formatResult:val3];
+}
+
+- (void)divide {
+	double val1 = [self.result doubleValue];
+	double val2 = [self.entering doubleValue];
+	double val3 = val1 / val2;
 	
 	self.result = [self formatResult:val3];
 }
