@@ -83,6 +83,12 @@
 	self.digitEntering = NO;
 }
 
+- (void)allClear {
+	[self clear];
+	
+	self.result = @"";
+}
+
 - (void)negative {
 }
 

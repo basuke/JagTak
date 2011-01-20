@@ -24,6 +24,7 @@
 - (void)hitDiv;
 - (void)hitEqual;
 - (void)clear;
+- (void)allClear;
 - (void)negative;
 - (void)digitAssistWithPlaces:(NSInteger)places;
 

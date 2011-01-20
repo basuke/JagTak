@@ -112,7 +112,7 @@
     STAssertTrue([calc.result isEqual:@"3"], calc.result);
 	
 	// 1 + 2 + 3 + 4 = 10
-	[calc clear];
+	[calc allClear];
 	[calc typeDigit:1];
 	
 	[calc hitPlus];
