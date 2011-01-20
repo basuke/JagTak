@@ -92,4 +92,24 @@
 	
 }
 
+/**
+ * + のテスト
+ */
+- (void)testPlus {
+	Calcurator *calc = [[[Calcurator alloc] init] autorelease];
+	
+	// 1 + 2 = 3
+	[calc clear];
+	[calc typeDigit:1];
+    STAssertTrue([calc.entering isEqual:@"1"], calc.entering);
+	
+	[calc hitPlus];
+	
+	[calc typeDigit:2];
+	STAssertTrue([calc.entering isEqual:@"2"], calc.entering);
+	
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"3"], calc.result);
+}
+
 @end
