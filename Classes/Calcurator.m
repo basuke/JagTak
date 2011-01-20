@@ -58,6 +58,8 @@
 }
 
 - (void)hitPlus {
+	self.result = self.entering;
+	self.entering = @"";
 }
 
 - (void)hitMinus {	
