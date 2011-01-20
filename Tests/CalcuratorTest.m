@@ -219,4 +219,36 @@
     STAssertTrue([calc.result isEqual:@"4.2"], calc.result);
 }
 
+/**
+ * x のテスト
+ */
+- (void)testMulti {
+	Calcurator *calc = [[[Calcurator alloc] init] autorelease];
+	
+	// 3 x 2 = 6
+	[calc clear];
+	[calc typeDigit:3];
+	[calc hitMul];
+	[calc typeDigit:2];
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"6"], calc.result);
+	
+	// 10 * 6 * 4 * 3 = 720
+	[calc allClear];
+	[calc typeDigit:1];
+	[calc typeDigit:0];
+	
+	[calc hitMul];
+	[calc typeDigit:6];
+	
+	[calc hitMul];
+	[calc typeDigit:4];
+	
+	[calc hitMul];
+	[calc typeDigit:3];
+	
+	[calc hitEqual];
+    STAssertTrue([calc.result isEqual:@"720"], calc.result);
+}
+
 @end
