@@ -49,6 +49,10 @@
 		return;
 	}
 	
+	if ([self.entering length] == 0) {
+		self.entering = @"0";
+	}
+	
 	self.entering = [self.entering stringByAppendingString:@"."];
 	self.digitEntering = YES;
 }
