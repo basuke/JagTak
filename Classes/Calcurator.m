@@ -14,6 +14,7 @@
 - (void)executeOperation;
 - (void)add;
 - (void)subtract;
+- (void)multiply;
 - (NSString *)formatResult:(double)val;
 
 @end
@@ -76,6 +77,8 @@
 }
 
 - (void)hitMul {
+	[self executeOperation];
+	self.currentOperator = @"*";
 }
 
 - (void)hitDiv {
@@ -113,6 +116,8 @@
 		[self add];
 	} else if ([self.currentOperator isEqual:@"-"]) {
 		[self subtract];
+	} else if ([self.currentOperator isEqual:@"*"]) {
+		[self multiply];
 	} else {
 		self.result = self.entering;
 	}
@@ -132,6 +137,14 @@
 	double val1 = [self.result doubleValue];
 	double val2 = [self.entering doubleValue];
 	double val3 = val1 - val2;
+	
+	self.result = [self formatResult:val3];
+}
+
+- (void)multiply {
+	double val1 = [self.result doubleValue];
+	double val2 = [self.entering doubleValue];
+	double val3 = val1 * val2;
 	
 	self.result = [self formatResult:val3];
 }
