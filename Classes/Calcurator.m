@@ -11,6 +11,8 @@
 
 @interface Calcurator()
 
+- (void)add;
+
 @end
 
 
@@ -58,7 +60,7 @@
 }
 
 - (void)hitPlus {
-	self.result = self.entering;
+	[self add];
 	self.entering = @"";
 }
 
@@ -73,11 +75,7 @@
 }
 
 - (void)hitEqual {
-	NSInteger val1 = [self.result intValue];
-	NSInteger val2 = [self.entering intValue];
-	NSInteger val3 = val1 + val2;
-	
-	self.result = [NSString stringWithFormat:@"%d", val3];
+	[self add];
 }
 
 - (void)clear {
@@ -91,5 +89,14 @@
 - (void)digitAssistWithPlaces:(NSInteger)places {
 }
 
+#pragma mark Logic
+
+- (void)add {
+	NSInteger val1 = [self.result intValue];
+	NSInteger val2 = [self.entering intValue];
+	NSInteger val3 = val1 + val2;
+	
+	self.result = [NSString stringWithFormat:@"%d", val3];
+}
 
 @end
