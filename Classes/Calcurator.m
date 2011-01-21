@@ -14,12 +14,8 @@
 
 @property(nonatomic, retain, readwrite) CalcEngine *engine;
 
-- (double)add:(double)value;
-- (double)subtract:(double)value;
-- (double)multiply:(double)value;
-- (double)divide:(double)value;
-
 - (void)executeOperation;
+- (void)updateResult;
 - (NSString *)formatResult:(double)val;
 
 @end
@@ -37,11 +33,12 @@
 
 - (id)init {
 	if (self = [super init]) {
-		self.result = @"";
+		self.engine = [[[CalcEngine alloc] init] autorelease];
+		
+		[self updateResult];
+		
 		self.entering = @"";
 		self.currentOperator = nil;
-		
-		self.engine = [[[CalcEngine alloc] init] autorelease];
 	}
 	return self;
 }
@@ -112,7 +109,8 @@
 - (void)allClear {
 	[self clear];
 	
-	self.result = @"";
+	[self.engine clear];
+	[self updateResult];
 }
 
 - (void)negative {
@@ -127,39 +125,23 @@
 	double value = [self.entering doubleValue];
 	
 	if ([self.currentOperator isEqual:@"+"]) {
-		value = [self add:value];
+		[self.engine add:value];
 	} else if ([self.currentOperator isEqual:@"-"]) {
-		value = [self subtract:value];
+		[self.engine subtract:value];
 	} else if ([self.currentOperator isEqual:@"*"]) {
-		value = [self multiply:value];
+		[self.engine multiply:value];
 	} else if ([self.currentOperator isEqual:@"/"]) {
-		value = [self divide:value];
+		[self.engine divide:value];
 	} else {
-		value = value;
+		[self.engine store:value];
 	}
 	
-	self.result = [self formatResult:value];;
+	[self updateResult];
 	[self clear];
 }
 
-- (double)add:(double)vallue {
-	double val1 = [self.result doubleValue];
-	return val1 + vallue;
-}
-
-- (double)subtract:(double)vallue {
-	double val1 = [self.result doubleValue];
-	return val1 - vallue;
-}
-
-- (double)multiply:(double)vallue {
-	double val1 = [self.result doubleValue];
-	return val1 * vallue;
-}
-
-- (double)divide:(double)vallue {
-	double val1 = [self.result doubleValue];
-	return val1 / vallue;
+- (void)updateResult {
+	self.result = [self formatResult:[self.engine result]];;
 }
 
 - (NSString *)formatResult:(double)val {
