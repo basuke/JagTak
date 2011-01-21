@@ -11,28 +11,28 @@
 
 @implementation CalcEngine
 
-- (void)store:(double)value {
-	_result = value;
+- (void)store:(NSNumber *)value {
+	_result = [value doubleValue];
 }
 
-- (void)add:(double)value {
-	_result += value;
+- (void)add:(NSNumber *)value {
+	_result += [value doubleValue];
 }
 
-- (void)subtract:(double)value {
-	_result -= value;
+- (void)subtract:(NSNumber *)value {
+	_result -= [value doubleValue];
 }
 
-- (void)multiply:(double)value {
-	_result *= value;
+- (void)multiply:(NSNumber *)value {
+	_result *= [value doubleValue];
 }
 
-- (void)divide:(double)value {
-	_result /= value;
+- (void)divide:(NSNumber *)value {
+	_result /= [value doubleValue];
 }
 
-- (double)result {
-	return _result;
+- (NSNumber *)result {
+	return [NSNumber numberWithDouble:_result];
 }
 
 - (void)clear {

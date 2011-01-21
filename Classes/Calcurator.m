@@ -13,6 +13,7 @@
 @interface Calcurator()
 
 @property(nonatomic, retain, readwrite) CalcEngine *engine;
+@property(nonatomic, retain, readwrite) NSDictionary *operations;
 
 - (void)executeOperation;
 - (void)updateResult;
@@ -20,6 +21,11 @@
 
 @end
 
+
+#define CalcOpPlus @"+"
+#define CalcOpMinus @"-"
+#define CalcOpMul @"*"
+#define CalcOpDiv @"/"
 
 @implementation Calcurator
 
@@ -30,6 +36,7 @@
 @synthesize digitEntering=_digitEntering;
 
 @synthesize engine=_engine;
+@synthesize operations=_operations;
 
 - (id)init {
 	if (self = [super init]) {
@@ -38,8 +45,17 @@
 		[self updateResult];
 		
 		self.entering = @"";
-		self.currentOperator = nil;
+		self.currentOperator = @"";
+		
+		self.operations = [NSDictionary dictionaryWithObjectsAndKeys:
+						   @"add:", CalcOpPlus, 
+						   @"subtract:", CalcOpMinus, 
+						   @"multiply:", CalcOpMul, 
+						   @"divide:", CalcOpDiv, 
+						   @"store:", @"", 
+						   nil];
 	}
+	
 	return self;
 }
 
@@ -49,6 +65,7 @@
 	self.currentOperator = nil;
 	
 	self.engine = nil;
+	self.operations = nil;
 	
 	[super dealloc];
 }
@@ -76,22 +93,22 @@
 
 - (void)hitPlus {
 	[self executeOperation];
-	self.currentOperator = @"+";
+	self.currentOperator = CalcOpPlus;
 }
 
 - (void)hitMinus {	
 	[self executeOperation];
-	self.currentOperator = @"-";
+	self.currentOperator = CalcOpMinus;
 }
 
 - (void)hitMul {
 	[self executeOperation];
-	self.currentOperator = @"*";
+	self.currentOperator = CalcOpMul;
 }
 
 - (void)hitDiv {
 	[self executeOperation];
-	self.currentOperator = @"/";
+	self.currentOperator = CalcOpDiv;
 }
 
 - (void)hitEqual {
@@ -103,7 +120,7 @@
 - (void)clear {
 	self.entering = @"";
 	self.digitEntering = NO;
-	self.currentOperator = nil;
+	self.currentOperator = @"";
 }
 
 - (void)allClear {
@@ -124,24 +141,17 @@
 - (void)executeOperation {
 	double value = [self.entering doubleValue];
 	
-	if ([self.currentOperator isEqual:@"+"]) {
-		[self.engine add:value];
-	} else if ([self.currentOperator isEqual:@"-"]) {
-		[self.engine subtract:value];
-	} else if ([self.currentOperator isEqual:@"*"]) {
-		[self.engine multiply:value];
-	} else if ([self.currentOperator isEqual:@"/"]) {
-		[self.engine divide:value];
-	} else {
-		[self.engine store:value];
-	}
+	NSString *op = [self.operations objectForKey:self.currentOperator];
+	SEL opSel= NSSelectorFromString(op);
+	
+	[self.engine performSelector:opSel withObject:[NSNumber numberWithDouble:value]];
 	
 	[self updateResult];
 	[self clear];
 }
 
 - (void)updateResult {
-	self.result = [self formatResult:[self.engine result]];;
+	self.result = [self formatResult:[[self.engine result] doubleValue]];;
 }
 
 - (NSString *)formatResult:(double)val {

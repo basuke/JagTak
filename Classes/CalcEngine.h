@@ -13,14 +13,14 @@
 	double _result;
 }
 
-- (void)store:(double)value;
+- (void)store:(NSNumber *)value;
 
-- (void)add:(double)value;
-- (void)subtract:(double)value;
-- (void)multiply:(double)value;
-- (void)divide:(double)value;
+- (void)add:(NSNumber *)value;
+- (void)subtract:(NSNumber *)value;
+- (void)multiply:(NSNumber *)value;
+- (void)divide:(NSNumber *)value;
 
-- (double)result;
+- (NSNumber *)result;
 
 - (void)clear;
 
