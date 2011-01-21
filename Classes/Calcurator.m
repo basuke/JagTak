@@ -14,11 +14,12 @@
 
 @property(nonatomic, retain, readwrite) CalcEngine *engine;
 
+- (double)add:(double)value;
+- (double)subtract:(double)value;
+- (double)multiply:(double)value;
+- (double)divide:(double)value;
+
 - (void)executeOperation;
-- (void)add;
-- (void)subtract;
-- (void)multiply;
-- (void)divide;
 - (NSString *)formatResult:(double)val;
 
 @end
@@ -123,51 +124,42 @@
 #pragma mark Logic
 
 - (void)executeOperation {
+	double value = [self.entering doubleValue];
+	
 	if ([self.currentOperator isEqual:@"+"]) {
-		[self add];
+		value = [self add:value];
 	} else if ([self.currentOperator isEqual:@"-"]) {
-		[self subtract];
+		value = [self subtract:value];
 	} else if ([self.currentOperator isEqual:@"*"]) {
-		[self multiply];
+		value = [self multiply:value];
 	} else if ([self.currentOperator isEqual:@"/"]) {
-		[self divide];
+		value = [self divide:value];
 	} else {
-		self.result = self.entering;
+		value = value;
 	}
 	
+	self.result = [self formatResult:value];;
 	[self clear];
 }
 
-- (void)add {
+- (double)add:(double)vallue {
 	double val1 = [self.result doubleValue];
-	double val2 = [self.entering doubleValue];
-	double val3 = val1 + val2;
-	
-	self.result = [self formatResult:val3];;
+	return val1 + vallue;
 }
 
-- (void)subtract {
+- (double)subtract:(double)vallue {
 	double val1 = [self.result doubleValue];
-	double val2 = [self.entering doubleValue];
-	double val3 = val1 - val2;
-	
-	self.result = [self formatResult:val3];
+	return val1 - vallue;
 }
 
-- (void)multiply {
+- (double)multiply:(double)vallue {
 	double val1 = [self.result doubleValue];
-	double val2 = [self.entering doubleValue];
-	double val3 = val1 * val2;
-	
-	self.result = [self formatResult:val3];
+	return val1 * vallue;
 }
 
-- (void)divide {
+- (double)divide:(double)vallue {
 	double val1 = [self.result doubleValue];
-	double val2 = [self.entering doubleValue];
-	double val3 = val1 / val2;
-	
-	self.result = [self formatResult:val3];
+	return val1 / vallue;
 }
 
 - (NSString *)formatResult:(double)val {
