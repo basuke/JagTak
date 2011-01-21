@@ -20,6 +20,8 @@
 		EB678B0712E8090800B50CDB /* Calcurator.m in Sources */ = {isa = PBXBuildFile; fileRef = EB678B0612E8090800B50CDB /* Calcurator.m */; };
 		EB678B4412E85ABD00B50CDB /* CalcuratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EB678B4212E85AA900B50CDB /* CalcuratorTest.m */; };
 		EB678B4512E85AC200B50CDB /* Calcurator.m in Sources */ = {isa = PBXBuildFile; fileRef = EB678B0612E8090800B50CDB /* Calcurator.m */; };
+		EBFF926512E94EFC000FDEF8 /* CalcEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EBFF926412E94EFC000FDEF8 /* CalcEngine.m */; };
+		EBFF926812E94F8C000FDEF8 /* CalcEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EBFF926412E94EFC000FDEF8 /* CalcEngine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		EB678B3A12E85A2F00B50CDB /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		EB678B4112E85AA900B50CDB /* CalcuratorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalcuratorTest.h; sourceTree = "<group>"; };
 		EB678B4212E85AA900B50CDB /* CalcuratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcuratorTest.m; sourceTree = "<group>"; };
+		EBFF926312E94EFC000FDEF8 /* CalcEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalcEngine.h; sourceTree = "<group>"; };
+		EBFF926412E94EFC000FDEF8 /* CalcEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,8 @@
 			children = (
 				EB678B0512E8090800B50CDB /* Calcurator.h */,
 				EB678B0612E8090800B50CDB /* Calcurator.m */,
+				EBFF926312E94EFC000FDEF8 /* CalcEngine.h */,
+				EBFF926412E94EFC000FDEF8 /* CalcEngine.m */,
 			);
 			name = Models;
 			path = Classes;
@@ -292,6 +298,7 @@
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */,
 				EB678B0712E8090800B50CDB /* Calcurator.m in Sources */,
+				EBFF926512E94EFC000FDEF8 /* CalcEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +308,7 @@
 			files = (
 				EB678B4412E85ABD00B50CDB /* CalcuratorTest.m in Sources */,
 				EB678B4512E85AC200B50CDB /* Calcurator.m in Sources */,
+				EBFF926812E94F8C000FDEF8 /* CalcEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

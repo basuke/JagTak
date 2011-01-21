@@ -7,9 +7,12 @@
 //
 
 #import "Calcurator.h"
+#import "CalcEngine.h"
 
 
 @interface Calcurator()
+
+@property(nonatomic, retain, readwrite) CalcEngine *engine;
 
 - (void)executeOperation;
 - (void)add;
@@ -29,11 +32,15 @@
 
 @synthesize digitEntering=_digitEntering;
 
+@synthesize engine=_engine;
+
 - (id)init {
 	if (self = [super init]) {
 		self.result = @"";
 		self.entering = @"";
 		self.currentOperator = nil;
+		
+		self.engine = [[[CalcEngine alloc] init] autorelease];
 	}
 	return self;
 }
@@ -42,6 +49,8 @@
 	self.result = nil;
 	self.entering = nil;
 	self.currentOperator = nil;
+	
+	self.engine = nil;
 	
 	[super dealloc];
 }
