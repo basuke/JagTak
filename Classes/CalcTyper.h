@@ -11,9 +11,13 @@
 
 
 @interface CalcTyper : NSObject {
+	id<Calculator> _calc;
 }
 
 - (NSArray *)arrayWithType:(NSString *)types;
 - (void)type:(NSString *)types to:(id<Calculator>)calc;
+
+- (void)setCalc:(id<Calculator>)calc;
+- (void)type:(NSString *)types;
 
 @end

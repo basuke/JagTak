@@ -24,8 +24,24 @@
 
 - (void)type:(NSString *)types to:(id<Calculator>)calc {
 	for (NSString *key in [self arrayWithType:types]) {
-		unichar c = [key characterAtIndex:0];
+		// ASCII範囲外の文字を特別対処
+		if ([key isEqual:@"×"]) {
+			key = @"*";
+		}
 		
+		if ([key isEqual:@"÷"]) {
+			key = @"/";
+		}
+		
+		if ([key isEqual:@"−"]) {
+			key = @"-";
+		}
+		
+		if ([key isEqual:@"±"]) {
+			key = @"N";
+		}
+		
+		unichar c = [key characterAtIndex:0];
 		switch (c) {
 			case '0':
 			case '1':
@@ -49,6 +65,7 @@
 				[calc hitMinus];
 				break;
 			case '*':
+			case 'x':
 				[calc hitMul];
 				break;
 			case '/':
@@ -66,10 +83,21 @@
 			case 'N':
 				[calc negative];
 				break;
+			case ' ':
+				break;
 			default:
+				NSAssert1(NO, @"INVALID CHARACTER '%@", key);
 				break;
 		}
 	}
+}
+
+- (void)setCalc:(id<Calculator>)calc {
+	_calc = calc;
+}
+
+- (void)type:(NSString *)types {
+	[self type:types to:_calc];
 }
 
 @end

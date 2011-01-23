@@ -13,9 +13,13 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
 
+#import "Calcurator.h"
+#import "CalcTyper.h"
+
 
 @interface CalcuratorTest : SenTestCase {
-
+	Calcurator *calc;
+	CalcTyper *typer;
 }
 
 @end
