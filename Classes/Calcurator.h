@@ -8,14 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Calcurator : NSObject {
-}
-
-@property(nonatomic, retain, readwrite) NSString *result;
-@property(nonatomic, retain, readwrite) NSString *entering;
-@property(nonatomic, retain, readwrite) NSString *currentOperator;
-
-@property(nonatomic, assign, readwrite) BOOL digitEntering;
+@protocol Calculator
 
 - (void)typeDigit:(NSInteger)digit;
 - (void)typeDot;
@@ -28,5 +21,16 @@
 - (void)allClear;
 - (void)negative;
 - (void)digitAssistWithPlaces:(NSInteger)places;
+
+@end
+
+@interface Calcurator : NSObject<Calculator> {
+}
+
+@property(nonatomic, retain, readwrite) NSString *result;
+@property(nonatomic, retain, readwrite) NSString *entering;
+@property(nonatomic, retain, readwrite) NSString *currentOperator;
+
+@property(nonatomic, assign, readwrite) BOOL digitEntering;
 
 @end

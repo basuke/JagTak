@@ -24,6 +24,7 @@
 		EBFF926812E94F8C000FDEF8 /* CalcEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EBFF926412E94EFC000FDEF8 /* CalcEngine.m */; };
 		EBFF92F412E9AEE5000FDEF8 /* CalcTyper.m in Sources */ = {isa = PBXBuildFile; fileRef = EBFF92F312E9AEE5000FDEF8 /* CalcTyper.m */; };
 		EBFF92F912E9AF2D000FDEF8 /* CalcTyperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EBFF92F812E9AF2D000FDEF8 /* CalcTyperTest.m */; };
+		EBFF934C12EBB71A000FDEF8 /* MockCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = EBFF934B12EBB71A000FDEF8 /* MockCalculator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		EBFF92F312E9AEE5000FDEF8 /* CalcTyper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcTyper.m; sourceTree = "<group>"; };
 		EBFF92F712E9AF2D000FDEF8 /* CalcTyperTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalcTyperTest.h; sourceTree = "<group>"; };
 		EBFF92F812E9AF2D000FDEF8 /* CalcTyperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcTyperTest.m; sourceTree = "<group>"; };
+		EBFF934A12EBB71A000FDEF8 /* MockCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockCalculator.h; sourceTree = "<group>"; };
+		EBFF934B12EBB71A000FDEF8 /* MockCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockCalculator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,8 +196,18 @@
 				EB678B4212E85AA900B50CDB /* CalcuratorTest.m */,
 				EBFF92F712E9AF2D000FDEF8 /* CalcTyperTest.h */,
 				EBFF92F812E9AF2D000FDEF8 /* CalcTyperTest.m */,
+				EBFF935D12EBB97B000FDEF8 /* Mocks */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		EBFF935D12EBB97B000FDEF8 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				EBFF934A12EBB71A000FDEF8 /* MockCalculator.h */,
+				EBFF934B12EBB71A000FDEF8 /* MockCalculator.m */,
+			);
+			name = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +334,7 @@
 				EBFF926812E94F8C000FDEF8 /* CalcEngine.m in Sources */,
 				EBFF92F412E9AEE5000FDEF8 /* CalcTyper.m in Sources */,
 				EBFF92F912E9AF2D000FDEF8 /* CalcTyperTest.m in Sources */,
+				EBFF934C12EBB71A000FDEF8 /* MockCalculator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

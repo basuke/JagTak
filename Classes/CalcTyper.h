@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Calcurator.h"
 
 
 @interface CalcTyper : NSObject {
 }
 
 - (NSArray *)arrayWithType:(NSString *)types;
+- (void)type:(NSString *)types to:(id<Calculator>)calc;
 
 @end

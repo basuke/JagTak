@@ -22,4 +22,54 @@
 	return [NSArray arrayWithArray:components];
 }
 
+- (void)type:(NSString *)types to:(id<Calculator>)calc {
+	for (NSString *key in [self arrayWithType:types]) {
+		unichar c = [key characterAtIndex:0];
+		
+		switch (c) {
+			case '0':
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+			case '7':
+			case '8':
+			case '9':
+				[calc typeDigit:(c - '0')];
+				break;
+			case '.':
+				[calc typeDot];
+				break;
+			case '+':
+				[calc hitPlus];
+				break;
+			case '-':
+				[calc hitMinus];
+				break;
+			case '*':
+				[calc hitMul];
+				break;
+			case '/':
+				[calc hitDiv];
+				break;
+			case '=':
+				[calc hitEqual];
+				break;
+			case 'c':
+				[calc clear];
+				break;
+			case 'C':
+				[calc allClear];
+				break;
+			case 'N':
+				[calc negative];
+				break;
+			default:
+				break;
+		}
+	}
+}
+
 @end

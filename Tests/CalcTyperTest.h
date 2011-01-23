@@ -17,7 +17,7 @@
 
 @interface CalcTyperTest : SenTestCase {
 	CalcTyper *typer;
-	Calcurator *calc;
 }
 
 @end
+
