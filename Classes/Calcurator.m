@@ -8,6 +8,7 @@
 
 #import "Calcurator.h"
 #import "CalcEngine.h"
+#import "EnteringValue.h"
 
 
 @interface Calcurator()
@@ -15,7 +16,7 @@
 @property(nonatomic, retain, readwrite) CalcEngine *engine;
 @property(nonatomic, retain, readwrite) NSDictionary *operations;
 
-@property(nonatomic, retain, readwrite) NSString *entering;
+@property(nonatomic, retain, readwrite) EnteringValue *entering;
 
 - (void)executeOperation;
 - (void)applyResult;
@@ -35,8 +36,6 @@
 
 @synthesize entering=_entering;
 @synthesize currentOperator=_currentOperator;
-
-@synthesize digitEntering=_digitEntering;
 
 @synthesize engine=_engine;
 @synthesize operations=_operations;
@@ -74,26 +73,23 @@
 }
 
 - (void)typeDigit:(NSInteger)digit {
-	if (self.entering == nil || [self.entering isEqual:@"0"]) {
-		self.entering = @"";
+	if (self.entering == nil) {
+		self.entering = [[[EnteringValue alloc] init] autorelease];
 	}
 	
-	self.entering = [self.entering stringByAppendingFormat:@"%d", digit];
-	self.display = self.entering;
+	[self.entering typeDigit:digit];
+	
+	self.display = [self.entering stringValue];
 }
 
 - (void)typeDot {
-	if (self.digitEntering) {
-		return;
-	}
-	
 	if (self.entering == nil) {
-		self.entering = @"0";
+		self.entering = [[[EnteringValue alloc] init] autorelease];
 	}
 	
-	self.entering = [self.entering stringByAppendingString:@"."];
-	self.display = self.entering;
-	self.digitEntering = YES;
+	[self.entering typeDot];
+	
+	self.display = [self.entering stringValue];
 }
 
 - (void)hitPlus {
@@ -124,7 +120,6 @@
 
 - (void)clear {
 	self.entering = nil;
-	self.digitEntering = NO;
 	self.currentOperator = @"";
 	
 	[self applyResult];

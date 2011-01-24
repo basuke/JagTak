@@ -30,6 +30,4 @@
 @property(nonatomic, retain, readwrite) NSString *display;
 @property(nonatomic, retain, readwrite) NSString *currentOperator;
 
-@property(nonatomic, assign, readwrite) BOOL digitEntering;
-
 @end
