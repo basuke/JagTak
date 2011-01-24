@@ -14,10 +14,12 @@
 
 - (void)typeDigit:(NSInteger)digit;
 - (void)typeDot;
+- (void)clear;
 
 - (double)doubleValue;
-- (NSString *)stringValue;
 
+@property(nonatomic, assign, readwrite) BOOL active;
+@property(nonatomic, retain, readwrite) NSString *value;
 @property(nonatomic, assign, readwrite) BOOL digit;
 
 @end

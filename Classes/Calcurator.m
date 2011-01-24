@@ -43,6 +43,7 @@
 - (id)init {
 	if (self = [super init]) {
 		self.engine = [[[CalcEngine alloc] init] autorelease];
+		self.entering = [[[EnteringValue alloc] init] autorelease];
 		
 		[self applyResult];
 		
@@ -73,23 +74,15 @@
 }
 
 - (void)typeDigit:(NSInteger)digit {
-	if (self.entering == nil) {
-		self.entering = [[[EnteringValue alloc] init] autorelease];
-	}
-	
 	[self.entering typeDigit:digit];
 	
-	self.display = [self.entering stringValue];
+	self.display = self.entering.value;
 }
 
 - (void)typeDot {
-	if (self.entering == nil) {
-		self.entering = [[[EnteringValue alloc] init] autorelease];
-	}
-	
 	[self.entering typeDot];
 	
-	self.display = [self.entering stringValue];
+	self.display = self.entering.value;
 }
 
 - (void)hitPlus {
@@ -113,13 +106,13 @@
 }
 
 - (void)hitEqual {
-	if (self.entering) {
+	if (self.entering.active) {
 		[self executeOperation];
 	}
 }
 
 - (void)clear {
-	self.entering = nil;
+	[self.entering clear];
 	self.currentOperator = @"";
 	
 	[self applyResult];
