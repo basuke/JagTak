@@ -47,7 +47,6 @@
 		
 		[self applyResult];
 		
-		self.entering = @"";
 		self.currentOperator = @"";
 		
 		self.operations = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -75,7 +74,7 @@
 }
 
 - (void)typeDigit:(NSInteger)digit {
-	if ([self.entering isEqual:@"0"]) {
+	if (self.entering == nil || [self.entering isEqual:@"0"]) {
 		self.entering = @"";
 	}
 	
@@ -88,7 +87,7 @@
 		return;
 	}
 	
-	if ([self.entering length] == 0) {
+	if (self.entering == nil) {
 		self.entering = @"0";
 	}
 	
@@ -118,24 +117,23 @@
 }
 
 - (void)hitEqual {
-	if ([self.entering length] > 0) {
+	if (self.entering) {
 		[self executeOperation];
 	}
 }
 
 - (void)clear {
-	self.entering = @"";
+	self.entering = nil;
 	self.digitEntering = NO;
 	self.currentOperator = @"";
 	
-	self.display = self.entering;
+	[self applyResult];
 }
 
 - (void)allClear {
 	[self clear];
 	
 	[self.engine clear];
-	[self applyResult];
 }
 
 - (void)negative {

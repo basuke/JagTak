@@ -45,7 +45,7 @@
     STAssertTrue([calc.display isEqual:@"10123"], calc.display);
 	
 	[calc clear];
-    STAssertEquals(calc.display, @"", @"Empty again");
+    STAssertTrue([calc.display isEqual:@"0"], calc.display);
 }
 
 /**
