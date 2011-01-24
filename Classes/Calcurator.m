@@ -15,8 +15,10 @@
 @property(nonatomic, retain, readwrite) CalcEngine *engine;
 @property(nonatomic, retain, readwrite) NSDictionary *operations;
 
+@property(nonatomic, retain, readwrite) NSString *entering;
+
 - (void)executeOperation;
-- (void)updateResult;
+- (void)applyResult;
 - (NSString *)formatResult:(double)val;
 
 @end
@@ -29,7 +31,8 @@
 
 @implementation Calcurator
 
-@synthesize result=_result;
+@synthesize display=_display;
+
 @synthesize entering=_entering;
 @synthesize currentOperator=_currentOperator;
 
@@ -42,7 +45,7 @@
 	if (self = [super init]) {
 		self.engine = [[[CalcEngine alloc] init] autorelease];
 		
-		[self updateResult];
+		[self applyResult];
 		
 		self.entering = @"";
 		self.currentOperator = @"";
@@ -60,7 +63,8 @@
 }
 
 - (void)dealloc {
-	self.result = nil;
+	self.display = nil;
+	
 	self.entering = nil;
 	self.currentOperator = nil;
 	
@@ -76,6 +80,7 @@
 	}
 	
 	self.entering = [self.entering stringByAppendingFormat:@"%d", digit];
+	self.display = self.entering;
 }
 
 - (void)typeDot {
@@ -88,6 +93,7 @@
 	}
 	
 	self.entering = [self.entering stringByAppendingString:@"."];
+	self.display = self.entering;
 	self.digitEntering = YES;
 }
 
@@ -121,13 +127,15 @@
 	self.entering = @"";
 	self.digitEntering = NO;
 	self.currentOperator = @"";
+	
+	self.display = self.entering;
 }
 
 - (void)allClear {
 	[self clear];
 	
 	[self.engine clear];
-	[self updateResult];
+	[self applyResult];
 }
 
 - (void)negative {
@@ -146,12 +154,12 @@
 	
 	[self.engine performSelector:opSel withObject:[NSNumber numberWithDouble:value]];
 	
-	[self updateResult];
 	[self clear];
+	[self applyResult];
 }
 
-- (void)updateResult {
-	self.result = [self formatResult:[[self.engine result] doubleValue]];;
+- (void)applyResult {
+	self.display = [self formatResult:[[self.engine result] doubleValue]];;
 }
 
 - (NSString *)formatResult:(double)val {

@@ -27,25 +27,25 @@
  * 簡単な入力からテスト。
  */
 - (void)testSimpleEntryDisplay {
-    STAssertEquals(calc.entering, @"", @"Empty" );
+    STAssertTrue([calc.display isEqual:@"0"], calc.display);
 	
 	[typer type:@"0"];
-    STAssertTrue([calc.entering isEqual:@"0"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"0"], calc.display);
 	
 	[typer type:@"0"];
-    STAssertTrue([calc.entering isEqual:@"0"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"0"], calc.display);
     
 	[typer type:@"1"];
-    STAssertTrue([calc.entering isEqual:@"1"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"1"], calc.display);
 	
 	[typer type:@"0"];
-    STAssertTrue([calc.entering isEqual:@"10"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"10"], calc.display);
     
 	[typer type:@"123"];
-    STAssertTrue([calc.entering isEqual:@"10123"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"10123"], calc.display);
 	
 	[calc clear];
-    STAssertEquals(calc.entering, @"", @"Empty again");
+    STAssertEquals(calc.display, @"", @"Empty again");
 }
 
 /**
@@ -53,23 +53,23 @@
  */
 - (void)testDot {
 	[typer type:@"c 1.23"];
-    STAssertTrue([calc.entering isEqual:@"1.23"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"1.23"], calc.display);
 	
 	// .で始めたら0が先頭につく
 	[typer type:@"c .123"];
-    STAssertTrue([calc.entering isEqual:@"0.123"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"0.123"], calc.display);
 	
 	// 最後の.は有効
 	[typer type:@"c 123."];
-    STAssertTrue([calc.entering isEqual:@"123."], calc.entering);
+    STAssertTrue([calc.display isEqual:@"123."], calc.display);
 	
 	// 連続して入力しても一度のみ
 	[typer type:@"c 1...23"];
-    STAssertTrue([calc.entering isEqual:@"1.23"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"1.23"], calc.display);
 	
 	// 間をおいて二度入れても無効
 	[typer type:@"c 12.3.4"];
-    STAssertTrue([calc.entering isEqual:@"12.34"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"12.34"], calc.display);
 	
 }
 
@@ -79,16 +79,16 @@
 - (void)testPlus {
 	// 1 + 2 = 3
 	[typer type:@"c 1"];
-    STAssertTrue([calc.entering isEqual:@"1"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"1"], calc.display);
 	
 	[typer type:@"+ 2"];
-	STAssertTrue([calc.entering isEqual:@"2"], calc.entering);
+	STAssertTrue([calc.display isEqual:@"2"], calc.display);
 	
 	[typer type:@"="];
-    STAssertTrue([calc.result isEqual:@"3"], calc.result);
+    STAssertTrue([calc.display isEqual:@"3"], calc.display);
 	
 	[typer type:@"C 1 + 2 + 3 + 4 ="];
-    STAssertTrue([calc.result isEqual:@"10"], calc.result);
+    STAssertTrue([calc.display isEqual:@"10"], calc.display);
 }
 
 /**
@@ -96,10 +96,10 @@
  */
 - (void)testMinus {
 	[typer type:@"C 3 - 2 ="];
-    STAssertTrue([calc.result isEqual:@"1"], calc.result);
+    STAssertTrue([calc.display isEqual:@"1"], calc.display);
 	
 	[typer type:@"C 10 - 6 - 4 - 3 ="];
-    STAssertTrue([calc.result isEqual:@"-3"], calc.result);
+    STAssertTrue([calc.display isEqual:@"-3"], calc.display);
 }
 
 /**
@@ -107,10 +107,10 @@
  */
 - (void)testPlusAndMinus {
 	[typer type:@"C 3 + 4 - 5 = "];
-    STAssertTrue([calc.result isEqual:@"2"], calc.result);
+    STAssertTrue([calc.display isEqual:@"2"], calc.display);
 	
 	[typer type:@"C 10 - 6 + 4 - 3 = "];
-    STAssertTrue([calc.result isEqual:@"5"], calc.result);
+    STAssertTrue([calc.display isEqual:@"5"], calc.display);
 }
 
 /**
@@ -118,16 +118,16 @@
  */
 - (void)testFractionalPlus {	// 4.2
 	[typer type:@"C 1.5"];
-    STAssertTrue([calc.entering isEqual:@"1.5"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"1.5"], calc.display);
 	
 	[typer type:@"+"];
-    STAssertTrue([calc.result isEqual:@"1.5"], calc.result);
+    STAssertTrue([calc.display isEqual:@"1.5"], calc.display);
 	
 	[typer type:@"2.7"];
-    STAssertTrue([calc.entering isEqual:@"2.7"], calc.entering);
+    STAssertTrue([calc.display isEqual:@"2.7"], calc.display);
 	
 	[typer type:@"="];
-    STAssertTrue([calc.result isEqual:@"4.2"], calc.result);
+    STAssertTrue([calc.display isEqual:@"4.2"], calc.display);
 }
 
 /**
@@ -135,10 +135,10 @@
  */
 - (void)testMulti {
 	[typer type:@"C 3 × 2 = "];
-    STAssertTrue([calc.result isEqual:@"6"], calc.result);
+    STAssertTrue([calc.display isEqual:@"6"], calc.display);
 	
 	[typer type:@"C 10 * 6 * 4 * 3 = "];
-    STAssertTrue([calc.result isEqual:@"720"], calc.result);
+    STAssertTrue([calc.display isEqual:@"720"], calc.display);
 }
 
 /**
@@ -146,10 +146,10 @@
  */
 - (void)testDiv {
 	[typer type:@"C 6 ÷ 2 = "];
-    STAssertTrue([calc.result isEqual:@"3"], calc.result);
+    STAssertTrue([calc.display isEqual:@"3"], calc.display);
 	
 	[typer type:@"C 720 / 6 / 4 / 3 = "];
-    STAssertTrue([calc.result isEqual:@"10"], calc.result);
+    STAssertTrue([calc.display isEqual:@"10"], calc.display);
 }
 
 @end

@@ -12,8 +12,8 @@
 #import "FlipsideViewController.h"
 
 
-#define CALC_RESULT_KEY @"result"
-#define CALC_ENTERING_KEY @"entering"
+#define CALC_RESULT_KEY @"display"
+#define CALC_ENTERING_KEY @"display"
 
 
 @interface MainViewController()<FlipsideViewControllerDelegate>
@@ -45,11 +45,11 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqual:CALC_RESULT_KEY]) {
-		resultDisplay.text = self.calc.result;
+		resultDisplay.text = self.calc.display;
 	}
 	
 	if ([keyPath isEqual:CALC_ENTERING_KEY]) {
-		enteringDisplay.text = self.calc.entering;
+		enteringDisplay.text = self.calc.display;
 	}
 }
 
