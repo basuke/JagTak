@@ -31,6 +31,12 @@
 	_result /= [value doubleValue];
 }
 
+- (void)negative {
+	if (_result != 0.0) {
+		_result = -_result;
+	}
+}
+
 - (NSNumber *)result {
 	return [NSNumber numberWithDouble:_result];
 }

@@ -152,4 +152,28 @@
     STAssertTrue([calc.display isEqual:@"10"], calc.display);
 }
 
+/**
+ *	+/- ボタンのテスト
+ */
+- (void)testNegative {
+	[typer type:@"C 10 ±"];
+    STAssertTrue([calc.display isEqual:@"-10"], @"10 ±");
+	
+	[typer type:@"±"];
+    STAssertTrue([calc.display isEqual:@"10"], @"もう一度");
+	
+	[typer type:@"C"];
+    STAssertTrue([calc.display isEqual:@"0"], @"clear");
+	
+	[typer type:@"±"];
+    STAssertTrue([calc.display isEqual:@"0"], @"0には-はない");
+	
+	[typer type:@"C 1 + 2 ± ="];
+    STAssertTrue([calc.display isEqual:@"-1"], @"C 1 + 2 ± =");
+	
+	[typer type:@"C 1 + 2 ±± ="];
+    STAssertTrue([calc.display isEqual:@"3"], @"C 1 + 2 ±± =");
+	
+}
+
 @end

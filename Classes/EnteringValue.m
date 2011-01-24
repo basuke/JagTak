@@ -51,6 +51,18 @@
 	self.active = YES;
 }
 
+- (void)negative {
+	if ([self.value isEqual:@"0"]) {
+		return;
+	}
+	
+	if ([self.value characterAtIndex:0] == '-') {
+		self.value = [self.value substringFromIndex:1];
+	} else {
+		self.value = [@"-" stringByAppendingString:self.value];
+	}
+}
+
 - (void)clear {
 	self.value = @"0";
 	self.digit = NO;

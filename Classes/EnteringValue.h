@@ -14,6 +14,9 @@
 
 - (void)typeDigit:(NSInteger)digit;
 - (void)typeDot;
+
+- (void)negative;
+
 - (void)clear;
 
 - (double)doubleValue;

@@ -20,6 +20,8 @@
 - (void)multiply:(NSNumber *)value;
 - (void)divide:(NSNumber *)value;
 
+- (void)negative;
+
 - (NSNumber *)result;
 
 - (void)clear;

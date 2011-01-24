@@ -125,6 +125,15 @@
 }
 
 - (void)negative {
+	if (self.entering.active) {
+		[self.entering negative];
+		
+		self.display = self.entering.value;
+	} else {
+		[self.engine negative];
+		
+		[self applyResult];
+	}
 }
 
 - (void)digitAssistWithPlaces:(NSInteger)places {
