@@ -109,16 +109,22 @@
 }
 
 - (void)clear {
-	[self.entering clear];
-	self.currentOperator = @"";
+	if (self.entering.active) {
+		[self.entering clear];
+		self.currentOperator = @"";
+	} else {
+		[self.engine clear];
+	}
 	
 	[self applyResult];
 }
 
 - (void)allClear {
-	[self clear];
-	
+	[self.entering clear];
+	self.currentOperator = @"";
 	[self.engine clear];
+	
+	[self applyResult];
 }
 
 - (void)negative {
