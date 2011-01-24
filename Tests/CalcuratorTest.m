@@ -174,6 +174,31 @@
 	[typer type:@"C 1 + 2 ±± ="];
     STAssertTrue([calc.display isEqual:@"3"], @"C 1 + 2 ±± =");
 	
+	[typer type:@"C 1 ±  3 + 3="];
+    STAssertTrue([calc.display isEqual:@"6"], @"最初の 1 ± は次の入力で無効に");
+	
+}
+
+- (void)testClear {
+	[typer type:@"C 1"];
+    STAssertTrue(calc.entering.active, @"入力中");
+    STAssertTrue([calc.display isEqual:@"1"], @"1のはず");
+	
+	[typer type:@"c"];
+    STAssertFalse(calc.entering.active, @"入力中じゃない");
+    STAssertTrue([calc.display isEqual:@"0"], @"0のはず");
+	
+	[typer type:@"C 1 + 2"];
+    STAssertTrue(calc.entering.active, @"入力中");
+    STAssertTrue([calc.display isEqual:@"2"], @"2のはず");
+	
+	[typer type:@"c"];
+    STAssertFalse(calc.entering.active, @"入力中じゃない");
+    STAssertTrue([calc.display isEqual:@"1"], @"1のはず");
+	
+	[typer type:@"c"];
+    STAssertFalse(calc.entering.active, @"入力中じゃない");
+    STAssertTrue([calc.display isEqual:@"0"], @"0のはず");
 }
 
 @end

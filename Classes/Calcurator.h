@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EnteringValue.h"
 
 @protocol Calculator
 
@@ -28,6 +29,7 @@
 }
 
 @property(nonatomic, retain, readwrite) NSString *display;
+@property(nonatomic, retain, readwrite) EnteringValue *entering;
 @property(nonatomic, retain, readwrite) NSString *currentOperator;
 
 @end

@@ -24,5 +24,6 @@
 @property(nonatomic, assign, readwrite) BOOL active;
 @property(nonatomic, retain, readwrite) NSString *value;
 @property(nonatomic, assign, readwrite) BOOL digit;
+@property(nonatomic, assign, readwrite) BOOL closed;
 
 @end

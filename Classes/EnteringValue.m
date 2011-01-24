@@ -19,6 +19,7 @@
 @synthesize active=_active;
 @synthesize value=_value;
 @synthesize digit=_digit;
+@synthesize closed=_closed;
 
 - (id)init {
 	if (self = [super init]) {
@@ -33,6 +34,10 @@
 }
 
 - (void)typeDigit:(NSInteger)digit {
+	if (self.closed) {
+		[self clear];
+	}
+	
 	if ([self.value isEqual:@"0"]) {
 		self.value = @"";
 	}
@@ -42,6 +47,10 @@
 }
 
 - (void)typeDot {
+	if (self.closed) {
+		[self clear];
+	}
+	
 	if (self.digit) {
 		return;
 	}
@@ -61,12 +70,14 @@
 	} else {
 		self.value = [@"-" stringByAppendingString:self.value];
 	}
+	self.closed = YES;
 }
 
 - (void)clear {
 	self.value = @"0";
 	self.digit = NO;
 	self.active = NO;
+	self.closed = NO;
 }
 
 @end

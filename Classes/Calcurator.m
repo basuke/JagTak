@@ -8,15 +8,12 @@
 
 #import "Calcurator.h"
 #import "CalcEngine.h"
-#import "EnteringValue.h"
 
 
 @interface Calcurator()
 
 @property(nonatomic, retain, readwrite) CalcEngine *engine;
 @property(nonatomic, retain, readwrite) NSDictionary *operations;
-
-@property(nonatomic, retain, readwrite) EnteringValue *entering;
 
 - (void)executeOperation;
 - (void)applyResult;
