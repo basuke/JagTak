@@ -8,8 +8,18 @@
 
 #import "CalcEngine.h"
 
+NSString *CalcErrorDivideByZero = @"Calc/Error/DivideByZero";
 
 @implementation CalcEngine
+
+@synthesize error=_error;
+@synthesize errorReason=_errorReason;
+
+- (void)dealloc {
+	self.errorReason = nil;
+	
+	[super dealloc];
+}
 
 - (void)store:(NSNumber *)value {
 	_result = [value doubleValue];
@@ -28,7 +38,14 @@
 }
 
 - (void)divide:(NSNumber *)value {
-	_result /= [value doubleValue];
+	double val = [value doubleValue];
+	if (val == 0.0) {
+		self.error = YES;
+		self.errorReason = CalcErrorDivideByZero;
+		return;
+	}
+	
+	_result /= val;
 }
 
 - (void)negative {
@@ -43,6 +60,9 @@
 
 - (void)clear {
 	_result = 0.0;
+	
+	self.error = NO;
+	self.errorReason = nil;
 }
 
 @end

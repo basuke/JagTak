@@ -7,12 +7,10 @@
 //
 
 #import "Calcurator.h"
-#import "CalcEngine.h"
 
 
 @interface Calcurator()
 
-@property(nonatomic, retain, readwrite) CalcEngine *engine;
 @property(nonatomic, retain, readwrite) NSDictionary *operations;
 
 - (void)executeOperation;

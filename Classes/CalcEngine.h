@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *CalcErrorDivideByZero;
 
 @interface CalcEngine : NSObject {
 	double _result;
@@ -25,5 +26,8 @@
 - (NSNumber *)result;
 
 - (void)clear;
+
+@property(nonatomic, assign, readwrite) BOOL error;
+@property(nonatomic, retain, readwrite) NSString *errorReason;
 
 @end

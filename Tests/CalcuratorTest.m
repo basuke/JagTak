@@ -201,4 +201,24 @@
     STAssertTrue([calc.display isEqual:@"0"], @"0のはず");
 }
 
+- (void)testError {
+	/*
+	 エラーは Calculatorのステータスであるべきだが、displayとは
+	 結びつくべきでない。エラーになったときにどういう表記にするかは
+	 使う側の実装にゆだねるべき。
+	 */
+	[typer type:@"C"];
+    STAssertFalse(calc.engine.error, @"エラーじゃない");
+	
+	[typer type:@"1 / 0 ="];
+    STAssertTrue(calc.engine.error, @"エラー!");
+    STAssertEquals(calc.engine.errorReason, CalcErrorDivideByZero, @"エラーはゼロ除算");
+	
+	[typer type:@"1 ="];
+    STAssertTrue(calc.engine.error, @"クリアしない限りエラー!");
+	
+	[typer type:@"c"];
+    STAssertFalse(calc.engine.error, @"クリアで解除");
+}
+
 @end
