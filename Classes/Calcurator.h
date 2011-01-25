@@ -35,3 +35,4 @@
 @property(nonatomic, retain, readwrite) NSString *currentOperator;
 
 @end
+

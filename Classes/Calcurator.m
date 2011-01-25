@@ -14,6 +14,7 @@
 @property(nonatomic, retain, readwrite) NSDictionary *operations;
 
 - (void)executeOperation;
+- (void)operationComplete;
 - (void)applyResult;
 - (NSString *)formatResult:(double)val;
 
@@ -103,6 +104,8 @@
 - (void)hitEqual {
 	if (self.entering.active) {
 		[self executeOperation];
+	} else {
+		
 	}
 }
 
@@ -110,11 +113,13 @@
 	if (self.entering.active) {
 		[self.entering clear];
 		[self.engine clearError];
+		
+		[self applyResult];
 	} else {
 		[self.engine clear];
+		
+		[self applyResult];
 	}
-	
-	[self applyResult];
 }
 
 - (void)allClear {
@@ -153,15 +158,21 @@
 		return;
 	}
 	
+	[self operationComplete];
+}
+
+- (void)operationComplete {
 	if (self.entering.active) {
 		[self.entering clear];
 		
 		self.currentOperator = @"";
+		
+		[self applyResult];
 	} else {
 		[self.engine clear];
+		
+		[self applyResult];
 	}
-	
-	[self applyResult];
 }
 
 - (void)applyResult {
