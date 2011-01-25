@@ -109,7 +109,7 @@
 - (void)clear {
 	if (self.entering.active) {
 		[self.entering clear];
-		self.currentOperator = @"";
+		[self.engine clearError];
 	} else {
 		[self.engine clear];
 	}
@@ -149,8 +149,18 @@
 	SEL opSel= NSSelectorFromString(op);
 	
 	[self.engine performSelector:opSel withObject:[NSNumber numberWithDouble:value]];
+	if (self.engine.error) {
+		return;
+	}
 	
-	[self clear];
+	if (self.entering.active) {
+		[self.entering clear];
+		
+		self.currentOperator = @"";
+	} else {
+		[self.engine clear];
+	}
+	
 	[self applyResult];
 }
 

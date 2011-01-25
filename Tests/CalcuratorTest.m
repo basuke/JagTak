@@ -219,6 +219,18 @@
 	
 	[typer type:@"c"];
     STAssertFalse(calc.engine.error, @"クリアで解除");
+	
+	// クリアで解除されるのは最後の入力値とエラーであるべき
+	
+	[typer type:@"C 10 / 0 = c"];
+    STAssertFalse(calc.engine.error, @"エラーは解除される");
+    STAssertTrue([calc.display isEqual:@"10"], @"最初の入力値、10が有効である");
+	
+	[typer type:@"5"];
+    STAssertTrue([calc.display isEqual:@"5"], @"入力しなおして5");
+	
+	[typer type:@"="];
+    STAssertTrue([calc.display isEqual:@"2"], @"10 / 5 = 10");
 }
 
 @end

@@ -26,6 +26,7 @@ extern NSString *CalcErrorDivideByZero;
 - (NSNumber *)result;
 
 - (void)clear;
+- (void)clearError;
 
 @property(nonatomic, assign, readwrite) BOOL error;
 @property(nonatomic, retain, readwrite) NSString *errorReason;

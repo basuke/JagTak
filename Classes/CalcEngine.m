@@ -61,6 +61,10 @@ NSString *CalcErrorDivideByZero = @"Calc/Error/DivideByZero";
 - (void)clear {
 	_result = 0.0;
 	
+	[self clearError];
+}
+
+- (void)clearError {
 	self.error = NO;
 	self.errorReason = nil;
 }
