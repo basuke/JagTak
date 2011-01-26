@@ -20,15 +20,14 @@
 }
 
 - (void)testType {
-	NSString *typeKeys = @"123+456=";
 	
-    NSArray *types = [typer arrayWithType:typeKeys];
+    NSArray *types = [typer arrayWithType:@"123+456="];
 	NSArray *bingo = [NSArray arrayWithObjects:@"1", @"2", @"3", @"+", @"4", @"5", @"6", @"=", nil];
 	STAssertEqualObjects(types, bingo, @"123+456=");
     
 	MockCalculator *calc = [[[MockCalculator alloc] init] autorelease];
 	
-	[typer type:typeKeys to:calc];
+	[typer type:@"123+456=" to:calc];
 	STAssertEquals([calc sentCount:@"1"], 1, @"1 is once");
 	STAssertEquals([calc sentCount:@"5"], 1, @"5 is once");
 	STAssertEquals([calc sentCount:@"+"], 1, @"+ is once");
@@ -38,8 +37,9 @@
 	
 	[calc resetCounts];
 	
-	[typer type:@"123456789+-*/=.cCN" to:calc];
-    for (NSString *c in [typer arrayWithType:typeKeys]) {
+	NSString *keys = @"123456789+-*/=.cCN";
+	[typer type:keys to:calc];
+    for (NSString *c in [typer arrayWithType:keys]) {
 		STAssertEquals([calc sentCount:c], 1, c);
 	}
 }
