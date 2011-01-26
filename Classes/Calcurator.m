@@ -12,9 +12,10 @@
 @interface Calcurator()
 
 @property(nonatomic, retain, readwrite) NSDictionary *operations;
+@property(nonatomic, assign, readwrite) double value;
 
+- (void)readEnteringValue;
 - (void)executeOperation;
-- (void)operationComplete;
 - (void)applyResult;
 - (NSString *)formatResult:(double)val;
 
@@ -31,6 +32,7 @@
 @synthesize display=_display;
 
 @synthesize entering=_entering;
+@synthesize value=_value;
 @synthesize currentOperator=_currentOperator;
 
 @synthesize engine=_engine;
@@ -82,50 +84,52 @@
 }
 
 - (void)hitPlus {
+	[self readEnteringValue];
 	[self executeOperation];
 	self.currentOperator = CalcOpPlus;
 }
 
 - (void)hitMinus {	
+	[self readEnteringValue];
 	[self executeOperation];
 	self.currentOperator = CalcOpMinus;
 }
 
 - (void)hitMul {
+	[self readEnteringValue];
 	[self executeOperation];
 	self.currentOperator = CalcOpMul;
 }
 
 - (void)hitDiv {
+	[self readEnteringValue];
 	[self executeOperation];
 	self.currentOperator = CalcOpDiv;
 }
 
 - (void)hitEqual {
 	if (self.entering.active) {
-		[self executeOperation];
-	} else {
-		
+		[self readEnteringValue];
 	}
+	[self executeOperation];
 }
 
 - (void)clear {
 	if (self.entering.active) {
 		[self.entering clear];
-		[self.engine clearError];
-		
-		[self applyResult];
 	} else {
-		[self.engine clear];
-		
-		[self applyResult];
+		[self.engine clearResult];
 	}
+	
+	[self.engine clearError];
+	[self applyResult];
 }
 
 - (void)allClear {
 	[self.entering clear];
 	self.currentOperator = @"";
-	[self.engine clear];
+	[self.engine clearResult];
+	[self.engine clearError];
 	
 	[self applyResult];
 }
@@ -147,32 +151,24 @@
 
 #pragma mark Logic
 
+- (void)readEnteringValue {
+	self.value = [self.entering doubleValue];
+}
+
 - (void)executeOperation {
-	double value = [self.entering doubleValue];
-	
 	NSString *op = [self.operations objectForKey:self.currentOperator];
 	SEL opSel= NSSelectorFromString(op);
 	
-	[self.engine performSelector:opSel withObject:[NSNumber numberWithDouble:value]];
+	[self.engine performSelector:opSel withObject:[NSNumber numberWithDouble:self.value]];
 	if (self.engine.error) {
 		return;
 	}
 	
-	[self operationComplete];
-}
-
-- (void)operationComplete {
 	if (self.entering.active) {
 		[self.entering clear];
-		
-		self.currentOperator = @"";
-		
-		[self applyResult];
-	} else {
-		[self.engine clear];
-		
-		[self applyResult];
 	}
+	
+	[self applyResult];
 }
 
 - (void)applyResult {
