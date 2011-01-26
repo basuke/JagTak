@@ -17,7 +17,7 @@
 
 - (void)readEnteringValue;
 - (void)executeOperation;
-- (void)applyResult;
+- (void)updateDisplay;
 - (NSString *)formatResult:(double)val;
 
 @end
@@ -45,7 +45,7 @@
 		self.engine = [[[CalcEngine alloc] init] autorelease];
 		self.entering = [[[EnteringValue alloc] init] autorelease];
 		
-		[self applyResult];
+		[self updateDisplay];
 		
 		self.currentOperator = @"";
 		
@@ -80,8 +80,7 @@
 	}
 	
 	[self.entering typeDigit:digit];
-	
-	self.display = self.entering.value;
+	[self updateDisplay];
 }
 
 - (void)typeDot {
@@ -91,8 +90,7 @@
 	}
 	
 	[self.entering typeDot];
-	
-	self.display = self.entering.value;
+	[self updateDisplay];
 }
 
 - (void)hitPlus {
@@ -140,7 +138,7 @@
 	
 	self.resultFixed = NO;
 	[self.engine clearError];
-	[self applyResult];
+	[self updateDisplay];
 }
 
 - (void)allClear {
@@ -149,22 +147,21 @@
 	[self.engine clearResult];
 	[self.engine clearError];
 	
-	[self applyResult];
+	[self updateDisplay];
 }
 
 - (void)negative {
 	if (self.entering.active) {
 		[self.entering negative];
-		
-		self.display = self.entering.value;
 	} else {
 		[self.engine negative];
-		
-		[self applyResult];
 	}
+	
+	[self updateDisplay];
 }
 
 - (void)digitAssistWithPlaces:(NSInteger)places {
+	[self.entering digitAssistWithPlaces:places];
 }
 
 #pragma mark Logic
@@ -186,11 +183,15 @@
 		[self.entering clear];
 	}
 	
-	[self applyResult];
+	[self updateDisplay];
 }
 
-- (void)applyResult {
-	self.display = [self formatResult:[[self.engine result] doubleValue]];;
+- (void)updateDisplay {
+	if (self.entering.active) {
+		self.display = [self.entering displayValue];
+	} else {
+		self.display = [self formatResult:[[self.engine result] doubleValue]];;
+	}
 }
 
 - (NSString *)formatResult:(double)val {

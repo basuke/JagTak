@@ -20,9 +20,11 @@
 - (void)clear;
 
 - (double)doubleValue;
+- (NSString *)displayValue;
+
+- (void)digitAssistWithPlaces:(NSInteger)places;
 
 @property(nonatomic, assign, readwrite) BOOL active;
-@property(nonatomic, retain, readwrite) NSString *value;
 @property(nonatomic, assign, readwrite) BOOL digit;
 @property(nonatomic, assign, readwrite) BOOL closed;
 

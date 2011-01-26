@@ -11,6 +11,8 @@
 
 @interface EnteringValue()
 
+@property(nonatomic, retain, readwrite) NSString *value;
+
 @end
 
 
@@ -29,8 +31,18 @@
 	return self;
 }
 
+- (void)dealloc {
+	self.value = nil;
+	
+	[super dealloc];
+}
+
 - (double)doubleValue {
 	return [self.value doubleValue];
+}
+
+- (NSString *)displayValue {
+	return self.value;
 }
 
 - (void)typeDigit:(NSInteger)digit {
@@ -78,6 +90,9 @@
 	self.digit = NO;
 	self.active = NO;
 	self.closed = NO;
+}
+
+- (void)digitAssistWithPlaces:(NSInteger)places {
 }
 
 @end
