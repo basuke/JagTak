@@ -13,6 +13,7 @@
 
 @property(nonatomic, retain, readwrite) NSDictionary *operations;
 @property(nonatomic, assign, readwrite) double value;
+@property(nonatomic, assign, readwrite) BOOL resultFixed;
 
 - (void)readEnteringValue;
 - (void)executeOperation;
@@ -33,6 +34,7 @@
 
 @synthesize entering=_entering;
 @synthesize value=_value;
+@synthesize resultFixed=_resultFixed;
 @synthesize currentOperator=_currentOperator;
 
 @synthesize engine=_engine;
@@ -72,36 +74,50 @@
 }
 
 - (void)typeDigit:(NSInteger)digit {
+	if (self.resultFixed) {
+		[self.engine clearResult];
+		self.resultFixed = NO;
+	}
+	
 	[self.entering typeDigit:digit];
 	
 	self.display = self.entering.value;
 }
 
 - (void)typeDot {
+	if (self.resultFixed) {
+		[self.engine clearResult];
+		self.resultFixed = NO;
+	}
+	
 	[self.entering typeDot];
 	
 	self.display = self.entering.value;
 }
 
 - (void)hitPlus {
+	self.resultFixed = NO;
 	[self readEnteringValue];
 	[self executeOperation];
 	self.currentOperator = CalcOpPlus;
 }
 
 - (void)hitMinus {	
+	self.resultFixed = NO;
 	[self readEnteringValue];
 	[self executeOperation];
 	self.currentOperator = CalcOpMinus;
 }
 
 - (void)hitMul {
+	self.resultFixed = NO;
 	[self readEnteringValue];
 	[self executeOperation];
 	self.currentOperator = CalcOpMul;
 }
 
 - (void)hitDiv {
+	self.resultFixed = NO;
 	[self readEnteringValue];
 	[self executeOperation];
 	self.currentOperator = CalcOpDiv;
@@ -112,6 +128,7 @@
 		[self readEnteringValue];
 	}
 	[self executeOperation];
+	self.resultFixed = YES;
 }
 
 - (void)clear {
@@ -121,6 +138,7 @@
 		[self.engine clearResult];
 	}
 	
+	self.resultFixed = NO;
 	[self.engine clearError];
 	[self applyResult];
 }

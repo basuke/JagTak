@@ -248,6 +248,30 @@
 	[typer type:@"C 5 + 5 ="];
 	[typer type:@"    + 3 ="];
     STAssertTrue([calc.display isEqual:@"13"], @"10 + 3 = 13");
+	
+	/*
+	 一度演算が終わって結果が表示された後に、
+	 別の演算を始めたら、結果をリセットしてから
+	 あらたな計算を始める
+	 */
+	[typer type:@"C 5 + 5 ="];
+	[typer type:@"1 + 2 ="];
+    STAssertTrue([calc.display isEqual:@"3"], @"クリアされてからなのでやはり3");
+	
+	/*
+	 似ているが、演算結果でなくいきなり数字を入れたパターン。
+	 同じ結果のはず
+	 */
+	[typer type:@"C 10 ="];
+	[typer type:@"1 + 2 ="];
+    STAssertTrue([calc.display isEqual:@"3"], @"クリアされてからなのでやはり3");
+	
+	/*
+	 .で初めても一緒
+	 */
+	[typer type:@"C 5 + 5 ="];
+	[typer type:@".5 ="];
+    STAssertTrue([calc.display isEqual:@"0.5"], @"クリアされてからなので0.5");
 }
 
 @end
