@@ -12,6 +12,7 @@
 @interface EnteringValue()
 
 @property(nonatomic, retain, readwrite) NSString *value;
+@property(nonatomic, assign, readwrite) double assistingValue;
 
 @end
 
@@ -19,9 +20,11 @@
 @implementation EnteringValue
 
 @synthesize active=_active;
-@synthesize value=_value;
 @synthesize digit=_digit;
 @synthesize closed=_closed;
+
+@synthesize value=_value;
+@synthesize assistingValue=_assistingValue;
 
 - (id)init {
 	if (self = [super init]) {
@@ -38,11 +41,27 @@
 }
 
 - (double)doubleValue {
-	return [self.value doubleValue];
+	double val = [self.value doubleValue];
+	
+	if (self.assistingValue) {
+		val += self.assistingValue;
+	}
+	
+	return val;
 }
 
 - (NSString *)displayValue {
-	return self.value;
+	NSString *value;
+	
+	if (self.assistingValue) {
+		double val = [self.value doubleValue];
+		val += self.assistingValue;
+		value = [NSString stringWithFormat:@"%d", (int)val];
+	} else {
+		value = self.value;
+	}
+	
+	return value;
 }
 
 - (void)typeDigit:(NSInteger)digit {
@@ -90,9 +109,17 @@
 	self.digit = NO;
 	self.active = NO;
 	self.closed = NO;
+	self.assistingValue = 0;
 }
 
 - (void)digitAssistWithPlaces:(NSInteger)places {
+	double val = [self.value doubleValue];
+	for (int i = 0; i < places; i++) {
+		val *= 10;
+	}
+	
+	self.assistingValue = val;
+	self.value = @"";
 }
 
 @end

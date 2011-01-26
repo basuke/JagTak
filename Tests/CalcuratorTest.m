@@ -274,4 +274,15 @@
     STAssertTrue([calc.display isEqual:@"0.5"], @"クリアされてからなので0.5");
 }
 
+- (void)testDigitAssist {
+	[calc typeDigit:5];
+	[calc digitAssistWithPlaces:4];
+    STAssertTrue([calc.display isEqual:@"50000"], [NSString stringWithFormat:@"%@ は 50000", calc.display]);
+	
+	[calc typeDigit:1];
+	[calc typeDigit:2];
+	[calc typeDigit:3];
+    STAssertTrue([calc.display isEqual:@"50123"], [NSString stringWithFormat:@"%@ は 50123", calc.display]);
+}
+
 @end

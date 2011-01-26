@@ -162,6 +162,7 @@
 
 - (void)digitAssistWithPlaces:(NSInteger)places {
 	[self.entering digitAssistWithPlaces:places];
+	[self updateDisplay];
 }
 
 #pragma mark Logic
