@@ -233,4 +233,17 @@
     STAssertTrue([calc.display isEqual:@"2"], @"10 / 5 = 10");
 }
 
+- (void)testTricky {
+	/*
+	 最後の演算を覚えておくロジックを実装
+	 */
+	[typer type:@"C 1 + 2 ="];
+    STAssertTrue([calc.display isEqual:@"3"], @"これは3");
+	[typer type:@"="];
+    STAssertTrue([calc.display isEqual:@"5"], @"続けて= を押すと最後の演算を繰り返すので 3+2=5");
+	
+	[typer type:@"= = = = ="];
+    STAssertTrue([calc.display isEqual:@"15"], @"さらに続けて５回= を押すと5+2*5=15");
+}
+
 @end

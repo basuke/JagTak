@@ -58,10 +58,8 @@ NSString *CalcErrorDivideByZero = @"Calc/Error/DivideByZero";
 	return [NSNumber numberWithDouble:_result];
 }
 
-- (void)clear {
+- (void)clearResult {
 	_result = 0.0;
-	
-	[self clearError];
 }
 
 - (void)clearError {
