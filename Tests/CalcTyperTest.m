@@ -39,8 +39,16 @@
 	
 	NSString *keys = @"123456789+-*/=.cCN";
 	[typer type:keys to:calc];
+	
     for (NSString *c in [typer arrayWithType:keys]) {
 		STAssertEquals([calc sentCount:c], 1, c);
+	}
+	
+	// もう一度全部うてみる
+	[typer type:keys to:calc];
+	
+    for (NSString *c in [typer arrayWithType:keys]) {
+		STAssertEquals([calc sentCount:c], 2, c);
 	}
 }
 
