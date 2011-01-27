@@ -275,14 +275,17 @@
 }
 
 - (void)testDigitAssist {
-	[calc typeDigit:5];
-	[calc digitAssistWithPlaces:4];
+	[typer type:@"C 5万"];
     STAssertTrue([calc.display isEqual:@"50000"], [NSString stringWithFormat:@"%@ は 50000", calc.display]);
 	
-	[calc typeDigit:1];
-	[calc typeDigit:2];
-	[calc typeDigit:3];
+	[typer type:@"123"];
     STAssertTrue([calc.display isEqual:@"50123"], [NSString stringWithFormat:@"%@ は 50123", calc.display]);
+//	
+//	[calc typeDigit:4];
+//    STAssertTrue([calc.display isEqual:@"51234"], [NSString stringWithFormat:@"%@ は 51234", calc.display]);
+//	
+//	[calc typeDigit:5];
+//    STAssertTrue([calc.display isEqual:@"51234"], [NSString stringWithFormat:@"%@ は 51234. これ以上は変わらない", calc.display]);
 }
 
 @end
