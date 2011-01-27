@@ -19,6 +19,7 @@
 
 - (void)clear;
 
+- (long long)integerValue;
 - (double)doubleValue;
 - (NSString *)displayValue;
 

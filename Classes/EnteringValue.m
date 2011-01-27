@@ -8,6 +8,49 @@
 
 #import "EnteringValue.h"
 
+@interface AssistValue : NSObject
+
+@property(nonatomic, assign, readwrite) long long value;
+@property(nonatomic, assign, readwrite) long place;
+
+@end
+
+
+@implementation AssistValue
+
+@synthesize value=_value;
+@synthesize place=_place;
+
++ (AssistValue *)valueWithIntegers:(NSString *)integers places:(NSInteger)places {
+	long long val;
+	
+	if (integers) {
+		val = [integers longLongValue];
+	} else {
+		val = 1;
+	}
+	
+	val *= pow(10, places);
+	
+	AssistValue *assist = [[AssistValue alloc] init];
+	
+	assist.value = val;
+	assist.place = places;
+	
+	return [assist autorelease];
+}
+
+- (BOOL)isSmallerThan:(AssistValue *)assist {
+	return self.place < assist.place;
+}
+
+- (void)merge:(AssistValue *)assist {
+	self.value *= pow(10.0, assist.place);
+	self.value += assist.value;
+}
+
+@end
+
 
 @interface EnteringValue()
 
@@ -53,8 +96,22 @@
 			nil];
 }
 
+- (long long)integerValue {
+	long long val = 0;
+	
+	for (AssistValue *assist in self.assists) {
+		val += assist.value;
+	}
+	
+	if (self.integers) {
+		val += [self.integers longLongValue];
+	}
+	
+	return val;
+}
+
 - (double)doubleValue {
-	double val = [self.integers longLongValue];
+	double val = [self integerValue];
 	
 	if ([self.decimals length] > 0) {
 		double d = [self.decimals longLongValue];
@@ -62,21 +119,13 @@
 		val += d;
 	}
 	
-//	if (self.assistingValue) {
-//		val += self.assistingValue;
-//	}
-	
 	return val;
 }
 
 - (NSString *)displayValue {
 	NSMutableString *value = [NSMutableString stringWithCapacity:20];
 	
-	if (self.integers) {
-		[value appendString:self.integers];
-	} else {
-		[value appendString:@"0"];
-	}
+	[value appendFormat:@"%ld", [self integerValue]];
 	
 	if (self.decimals) {
 		[value appendString:@"."];
@@ -143,13 +192,17 @@
 }
 
 - (void)digitAssistWithPlaces:(NSInteger)places {
-	double val = [self.integers doubleValue];
-	for (int i = 0; i < places; i++) {
-		val *= 10;
+	AssistValue *assist = [AssistValue valueWithIntegers:self.integers places:places];
+	self.integers = nil;
+	
+	for (AssistValue *assist2 in self.assists) {
+		if ([assist2 isSmallerThan:assist]) {
+			[assist2 merge:assist];
+			return;
+		}
 	}
 	
-//	self.assistingValue = val;
-	self.integers = [NSString stringWithFormat:@"%d", (int) val];
+	[self.assists addObject:assist];
 }
 
 @end
