@@ -17,7 +17,6 @@
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
-		EB3D25B812F0F2A900501B63 /* CalcAssistTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3D25B712F0F2A900501B63 /* CalcAssistTest.m */; };
 		EB57C78612EDC270007BFEF6 /* EnteringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EB57C78512EDC270007BFEF6 /* EnteringValue.m */; };
 		EB57C79112EDC5C6007BFEF6 /* EnteringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EB57C78512EDC270007BFEF6 /* EnteringValue.m */; };
 		EB678B0712E8090800B50CDB /* Calcurator.m in Sources */ = {isa = PBXBuildFile; fileRef = EB678B0612E8090800B50CDB /* Calcurator.m */; };
@@ -348,7 +347,6 @@
 				EBFF92F912E9AF2D000FDEF8 /* CalcTyperTest.m in Sources */,
 				EBFF934C12EBB71A000FDEF8 /* MockCalculator.m in Sources */,
 				EB57C78612EDC270007BFEF6 /* EnteringValue.m in Sources */,
-				EB3D25B812F0F2A900501B63 /* CalcAssistTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

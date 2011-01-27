@@ -71,6 +71,9 @@
 	[typer type:@"c 12.3.4"];
     STAssertTrue([calc.display isEqual:@"12.34"], calc.display);
 	
+	
+	[typer type:@"C .1234 ="];
+    STAssertTrue([calc.display isEqual:@"0.1234"], @"Must be 0.1234, but %@", calc.display);
 }
 
 /**
@@ -271,7 +274,7 @@
 	 */
 	[typer type:@"C 5 + 5 ="];
 	[typer type:@".5 ="];
-    STAssertTrue([calc.display isEqual:@"0.5"], @"クリアされてからなので0.5");
+    STAssertTrue([calc.display isEqual:@"0.5"], @"Must be 0.5, but %@", calc.display);
 }
 
 @end

@@ -11,8 +11,9 @@
 
 @interface EnteringValue()
 
-@property(nonatomic, retain, readwrite) NSString *value;
-@property(nonatomic, assign, readwrite) double assistingValue;
+@property(nonatomic, retain, readwrite) NSString *integers;
+@property(nonatomic, retain, readwrite) NSString *decimals;
+@property(nonatomic, retain, readwrite) NSMutableArray *assists;
 
 @end
 
@@ -20,11 +21,11 @@
 @implementation EnteringValue
 
 @synthesize active=_active;
-@synthesize digit=_digit;
 @synthesize closed=_closed;
 
-@synthesize value=_value;
-@synthesize assistingValue=_assistingValue;
+@synthesize integers=_integers;
+@synthesize decimals=_decimals;
+@synthesize assists=_assists;
 
 - (id)init {
 	if (self = [super init]) {
@@ -35,33 +36,54 @@
 }
 
 - (void)dealloc {
-	self.value = nil;
+	self.integers = nil;
+	self.decimals = nil;
+	self.assists = nil;
 	
 	[super dealloc];
 }
 
+- (NSString *)description {
+	return [NSString stringWithFormat:
+			@"ACTIVE: %@ CLOSED: %@ INTEGERS: %@ DECIMALS: %@", 
+			(self.active ? @"YES" : @"NO"),
+			(self.closed ? @"YES" : @"NO"),
+			self.integers, 
+			self.decimals, 
+			nil];
+}
+
 - (double)doubleValue {
-	double val = [self.value doubleValue];
+	double val = [self.integers longLongValue];
 	
-	if (self.assistingValue) {
-		val += self.assistingValue;
+	if ([self.decimals length] > 0) {
+		double d = [self.decimals longLongValue];
+		d /= pow(10, [self.decimals length]);
+		val += d;
 	}
+	
+//	if (self.assistingValue) {
+//		val += self.assistingValue;
+//	}
 	
 	return val;
 }
 
 - (NSString *)displayValue {
-	NSString *value;
+	NSMutableString *value = [NSMutableString stringWithCapacity:20];
 	
-	if (self.assistingValue) {
-		double val = [self.value doubleValue];
-		val += self.assistingValue;
-		value = [NSString stringWithFormat:@"%d", (int)val];
+	if (self.integers) {
+		[value appendString:self.integers];
 	} else {
-		value = self.value;
+		[value appendString:@"0"];
 	}
 	
-	return value;
+	if (self.decimals) {
+		[value appendString:@"."];
+		[value appendString:self.decimals];
+	}
+	
+	return [NSString stringWithString:value];
 }
 
 - (void)typeDigit:(NSInteger)digit {
@@ -69,11 +91,18 @@
 		[self clear];
 	}
 	
-	if ([self.value isEqual:@"0"]) {
-		self.value = @"";
-	}
+	NSString *digitChar = [NSString stringWithFormat:@"%d", digit];
 	
-	self.value = [self.value stringByAppendingFormat:@"%d", digit];
+	if (self.decimals) {
+		self.decimals = [self.decimals stringByAppendingString:digitChar];
+	} else {
+		if (self.integers) {
+			self.integers = [self.integers stringByAppendingString:digitChar];
+		} else if (digit) {
+			self.integers = digitChar;
+		}
+	}
+
 	self.active = YES;
 }
 
@@ -82,44 +111,45 @@
 		[self clear];
 	}
 	
-	if (self.digit) {
+	if (self.decimals) {
 		return;
 	}
 	
-	self.value = [self.value stringByAppendingString:@"."];
-	self.digit = YES;
+	self.decimals = @"";
 	self.active = YES;
 }
 
 - (void)negative {
-	if ([self.value isEqual:@"0"]) {
+	if (! self.integers) {
 		return;
 	}
 	
-	if ([self.value characterAtIndex:0] == '-') {
-		self.value = [self.value substringFromIndex:1];
+	if ([self.integers characterAtIndex:0] == '-') {
+		self.integers = [self.integers substringFromIndex:1];
 	} else {
-		self.value = [@"-" stringByAppendingString:self.value];
+		self.integers = [@"-" stringByAppendingString:self.integers];
 	}
+	
 	self.closed = YES;
 }
 
 - (void)clear {
-	self.value = @"0";
-	self.digit = NO;
+	self.integers = nil;
+	self.decimals = nil;
 	self.active = NO;
 	self.closed = NO;
-	self.assistingValue = 0;
+	
+	self.assists = [NSMutableArray arrayWithCapacity:5];
 }
 
 - (void)digitAssistWithPlaces:(NSInteger)places {
-	double val = [self.value doubleValue];
+	double val = [self.integers doubleValue];
 	for (int i = 0; i < places; i++) {
 		val *= 10;
 	}
 	
-	self.assistingValue = val;
-	self.value = @"";
+//	self.assistingValue = val;
+	self.integers = [NSString stringWithFormat:@"%d", (int) val];
 }
 
 @end
