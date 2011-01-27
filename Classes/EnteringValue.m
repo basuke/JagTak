@@ -10,8 +10,10 @@
 
 @interface AssistValue : NSObject
 
-@property(nonatomic, assign, readwrite) long long value;
-@property(nonatomic, assign, readwrite) long place;
+@property(nonatomic, assign, readonly) long long value;
+@property(nonatomic, assign, readonly) long place;
+
+- (id)initWithIntegers:(NSString *)integers places:(NSInteger)places;
 
 @end
 
@@ -22,22 +24,27 @@
 @synthesize place=_place;
 
 + (AssistValue *)valueWithIntegers:(NSString *)integers places:(NSInteger)places {
-	long long val;
-	
-	if (integers) {
+	return [[[AssistValue alloc] initWithIntegers:integers places:places] autorelease];
+}
+
+- (id)initWithIntegers:(NSString *)integers places:(NSInteger)places {
+	if (self = [super init]) {
+		long long val;
+		
 		val = [integers longLongValue];
-	} else {
-		val = 1;
+		
+		_value = val;
+		_place = places;
 	}
 	
-	val *= pow(10, places);
+	return self;
+}
+
+- (long long)value {
+	double value = _value;
+	if (value == 0) value = 1.0;
 	
-	AssistValue *assist = [[AssistValue alloc] init];
-	
-	assist.value = val;
-	assist.place = places;
-	
-	return [assist autorelease];
+	return value * pow(10.0, self.place);
 }
 
 - (BOOL)isSmallerThan:(AssistValue *)assist {
@@ -45,8 +52,13 @@
 }
 
 - (void)merge:(AssistValue *)assist {
-	self.value *= pow(10.0, assist.place);
-	self.value += assist.value;
+	if (_value == 0) {
+		_value = 1.0;
+	}
+	
+	_value = assist->_value + _value * pow(10.0, self.place);
+	
+	_place = assist.place;
 }
 
 @end
@@ -202,7 +214,9 @@
 		}
 	}
 	
-	[self.assists addObject:assist];
+	[self.assists insertObject:assist atIndex:0];
+	
+	self.active = YES;
 }
 
 @end

@@ -67,6 +67,39 @@
     STAssertTrue([calc.display isEqual:@"530200008"], @"5OOOOOOOO + 3020OOOO + 8 buf %@", calc.display);
 	[typer type:@"千"];
     STAssertTrue([calc.display isEqual:@"530208000"], @"5OOOOOOOO + 3020OOOO + 8OOO buf %@", calc.display);
+	
+	[typer type:@"C 億"];
+    STAssertTrue([calc.display isEqual:@"100000000"], calc.display);
+	
+	[typer type:@"C 億千"];
+	// C 0
+	// 億 0 100000000
+	// 千 0 100000000 1000
+    STAssertTrue([calc.display isEqual:@"100001000"], calc.display);
+	// 万 0 100000000 1000 10000 => 100000000 10000000
+	[typer type:@"万"];
+    STAssertTrue([calc.display isEqual:@"110000000"], calc.display);
+	
+	[typer type:@"C 千億千万千11"];
+    STAssertTrue([calc.display isEqual:@"110000001011"], calc.display);
+	
+	[typer type:@"C 千万"];
+    STAssertTrue([calc.display isEqual:@"10000000"], calc.display);
+	
+	[typer type:@"C 1000万"];
+    STAssertTrue([calc.display isEqual:@"10000000"], calc.display);
+	
+	[typer type:@"C 2千万"];
+    STAssertTrue([calc.display isEqual:@"20000000"], calc.display);
+	
+	[typer type:@"C 1千200万"];
+    STAssertTrue([calc.display isEqual:@"12000000"], calc.display);
+	
+	[typer type:@"C 1千2万"];
+    STAssertTrue([calc.display isEqual:@"10020000"], calc.display);
+	
+	[typer type:@"C 1千1万"];
+    STAssertTrue([calc.display isEqual:@"10010000"], calc.display);
 }
 
 @end
