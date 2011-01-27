@@ -78,6 +78,29 @@
 }
 
 - (void)digitAssistWithPlaces:(NSInteger)places {
+	NSString *key;
+	
+	switch (places) {
+		case 8:
+			key = @"億";
+			break;
+		case 6:
+			key = @"B";
+			break;
+		case 4:
+			key = @"万";
+			break;
+		case 3:
+			key = @"千";
+			break;
+		case 2:
+			key = @"H";
+			break;
+		default:
+			key = [NSString stringWithFormat:@"DA%d", places];
+			break;
+	}
+	[self countForKey:key];
 }
 
 @end

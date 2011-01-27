@@ -37,7 +37,7 @@
 	
 	[calc resetCounts];
 	
-	NSString *keys = @"123456789+-*/=.cCN";
+	NSString *keys = @"123456789+-*/=.cCN億万千";
 	[typer type:keys to:calc];
 	
     for (NSString *c in [typer arrayWithType:keys]) {
